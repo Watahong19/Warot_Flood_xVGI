@@ -627,13 +627,7 @@ html, body {
         <option value="A">Task A — Usability Classification  (400 images)</option>
         <option value="B">Task B — Gold Standard Depth  (200 images)</option>
       </select>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Google Sheets Webhook URL</label>
-      <input class="form-input" id="inp-webhook"
-        placeholder="https://script.google.com/macros/s/AKfycbxDHS7C8eNjyMmG427_-C464kGzcs3f1-VuxRG2BVkIUONWmqkuHeYABF8U2kfTVrubWA/exec"
-        autocomplete="off">
-    </div>
+    <input type="hidden" id="inp-webhook" value="https://script.google.com/macros/s/AKfycbxDHS7C8eNjyMmG427_-C464kGzcs3f1-VuxRG2BVkIUONWmqkuHeYABF8U2kfTVrubWA/exec">
 
     <button class="btn-primary" id="btn-start">Start Annotation →</button>
 
@@ -8118,7 +8112,7 @@ document.getElementById('btn-start').addEventListener('click', () => {
   if (!name)    { showToast('Please enter your name', 'error'); return; }
   if (!id)      { showToast('Please select your Annotator ID', 'error'); return; }
   if (!task)    { showToast('Please select your task', 'error'); return; }
-  if (!webhook) { showToast('Please paste the webhook URL', 'error'); return; }
+  
 
   S.name = name;
   S.annotatorId = id;
