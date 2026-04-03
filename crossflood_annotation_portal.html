@@ -863,19 +863,27 @@ html, body {
 
 <script>
 // ═══════════════════════════════════════════════════════════════════════
-// STATE
+// STATE & UTILS
 // ═══════════════════════════════════════════════════════════════════════
 const S = {
   name: '', annotatorId: '', task: '', webhookUrl: '',
-  images: [],         // array of {ticket_id, img_url, district, subdistrict,
-                      //           timestamp, comment, estimated_depth,
-                      //           reference_object, risk_tier, tier_confidence}
-  results: [],        // per-image annotation results
+  images: [],         
+  results: [],        
   idx: 0,
   selectedClass: null,
   selectedSev: null,
   selectedImgType: null,
 };
+
+// 👇 ADD THIS NEW FUNCTION RIGHT HERE 👇
+function getWorkingImageUrl(url) {
+  if (!url) return '';
+  const match = url.match(/id=([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1200`;
+  }
+  return url;
+}
 
 // ═══════════════════════════════════════════════════════════════════════
 // IMAGE DATA  — REPLACE THIS SECTION WITH YOUR ACTUAL DATA
@@ -8195,7 +8203,7 @@ function showImage(idx) {
   ph.style.display = 'flex';
   ph.querySelector('span').textContent = 'Loading...';
   imgEl.style.display = 'none';
-  imgEl.src = img.img_url;
+  imgEl.src = getWorkingImageUrl(img.img_url);
   imgEl.onload = () => {
     imgEl.style.display = 'block';
     ph.style.display = 'none';
